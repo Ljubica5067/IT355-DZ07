@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jela form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${(jelo.id == null) ? 'Create jelo' : 'Edit jelo'}"></h1>
+    <form th:object="${jelo}" th:action="@{/jela/save}" method="post">
+        <div class="form-group">
+            <input type="hidden" class="form-control" id="id" th:field="*{id}" required>
+        </div>
+        <div class="form-group">
+            <label for="naziv">Naziv:</label>
+            <input type="text" class="form-control" id="naziv" th:field="*{naziv}" required>
+            <div th:if="${#fields.hasErrors('naziv')}" th:errors="*{naziv}"></div>
+        </div>
+        <div class="form-group">
+            <label for="opis">Opis:</label>
+            <input type="text" class="form-control" id="opis" th:field="*{opis}" required>
+            <div th:if="${#fields.hasErrors('opis')}" th:errors="*{opis}"></div>
+        </div>
+        <div class="form-group">
+            <label for="cena">Cena:</label>
+            <input type="number" class="form-control" id="cena" th:field="*{cena}">
+            <div th:if="${#fields.hasErrors('cena')}" th:errors="*{cena}"></div>
+        </div>
+        <div class="form-group">
+            <label for="restoran">Restoran:</label>
+            <select class="form-control" id="restoran" th:field="*{restoran}">
+                <option th:each="restoran : ${restorani}" th:value="${restoran.getId()}" th:text="${restoran.getNaziv()}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a th:href="@{/jela}" class="btn btn-secondary">Cancel</a>
+        <a href="/jela">Back </a>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Jela</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <h1>Jela</h1>
+  <p>
+    <a th:href="@{/jela/create}" class="btn btn-secondary">Novo jelo</a>
+  </p>
+  <form th:action="@{/jela/search}" method="get">
+    <div class="form-group">
+      <input type="text" class="form-control" id="search" name="naziv" placeholder="Unesite naziv jela...">
+    </div>
+    <button type="submit" class="btn btn-primary">Pretrazi</button>
+  </form>
+  <table class="table">
+    <tr>
+      <th>Naziv</th>
+      <th>Opis</th>
+      <th>Cena</th>
+      <th>Restoran</th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tr th:each="jelo : ${jela}">
+      <td th:text="${jelo.getNaziv()}"></td>
+      <td th:text="${jelo.getOpis()}"></td>
+      <td th:text="${jelo.getCena()}"></td>
+      <td th:text="${jelo.getRestoran().getNaziv()}"></td>
+      <td><a th:href="@{/jela/edit/{id}(id=${jelo.getId()})}">Edit</a></td>
+      <td><a th:href="@{/jela/delete/{id}(id=${jelo.getId()})}"
+             onclick="return confirm('Are you sure?')">Delete</a>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

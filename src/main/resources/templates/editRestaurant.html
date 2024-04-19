@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restorani form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${(restoran.id == null) ? 'Create restoran' : 'Edit restoran'}"></h1>
+    <form th:object="${restoran}" th:action="@{/restorani/save}" method="post">
+        <div class="form-group">
+            <input type="hidden" class="form-control" id="id" th:field="*{id}" required>
+        </div>
+        <div class="form-group">
+            <label for="naziv">Naziv:</label>
+            <input type="text" class="form-control" id="naziv" th:field="*{naziv}" required>
+            <div th:if="${#fields.hasErrors('naziv')}" th:errors="*{naziv}"></div>
+        </div>
+        <div class="form-group">
+            <label for="adresa">Adresa:</label>
+            <input type="text" class="form-control" id="adresa" th:field="*{adresa}" required>
+            <div th:if="${#fields.hasErrors('adresa')}" th:errors="*{adresa}"></div>
+        </div>
+        <div class="form-group">
+            <label for="telefon">Telefon:</label>
+            <input type="text" class="form-control" id="telefon" th:field="*{telefon}">
+            <div th:if="${#fields.hasErrors('telefon')}" th:errors="*{telefon}"></div>
+        </div>
+        <div class="form-group">
+            <label for="ocena">Ocena:</label>
+            <input type="number" class="form-control" id="ocena" th:field="*{ocena}">
+            <div th:if="${#fields.hasErrors('ocena')}" th:errors="*{ocena}"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a th:href="@{/restorani}" class="btn btn-secondary">Cancel</a>
+        <a href="/restorani">Back </a>
+    </form>
+</div>
+</body>
+</html>
